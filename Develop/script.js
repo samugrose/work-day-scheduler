@@ -21,3 +21,22 @@ for (i = 9; i <= 17; i++) {
 //get current hours to determine past, present, etc. this value updates hourly and upon refresh
 var currentTime = moment().inspect().split("T")[1].substr(0,2);
 console.log(currentTime + " hours");
+
+$( ".container" ).on( "click", ".text-area", function( event ) {
+    event.preventDefault();
+    console.log( $( this ).attr("data-value"));
+});
+// var textArea = $(".text-area"); //selects each time area, 
+// textArea.on("click", function(){
+//     var value = $(this).data-value;
+//     console.log(value);
+// })
+
+// for (i = 0; i < 10; i++) {
+//     var clicked = jQuery( `[value = ${i}]` );
+//     clicked.attr("data-value");
+//     clicked.click(function(event) {
+//         event.preventDefault();
+//         console.log(clicked.value);
+//     });
+// }
