@@ -1,33 +1,62 @@
 var clock = $(".clock");
+var textRef;
 for (i = 9; i <= 17; i++) {
     if (i < 12) { //prints 9am, 10am, 11am, then triggers pm
         var hoursec = jQuery( `[value = ${i}]` );
         hoursec.text(i + "AM");
-        console.log(hoursec.attr("value"));
-        getStored(i - 9);
-    //$(`.container .row .hour:nth-child(${i})`).text(`${i + 8}AM`);
+        //console.log(hoursec.attr("value"));
+        //getStored(i - 9);
     }else  if (i === 12){
         var hoursec = jQuery( `[value = ${i}]` );
         hoursec.text(i + "PM");
-        console.log(hoursec.attr("value"));
-        getStored(i - 9);
+        //console.log(hoursec.attr("value"));
+        //getStored(i - 9);
     }else { //i> 12
-       // $(`.container .row .hour:nth-child(${i})`).text(`${i + 8}PM`);
        var hoursec = jQuery( `[value = ${i}]` );
        hoursec.text((i - 12) + "PM");
-        console.log(hoursec.attr("value"));
-        getStored(i - 9);
+        //console.log(hoursec.attr("value"));
+        //getStored(i - 9);
     }
 }
 
-function getStored(index) {
-var value;
-    input = localStorage.getItem("" + index);
-    if (input !== null) {
-        value = input;
-    }
-    console.log("input value: " + input + " " + index);
+function indexIfy(index) {
+    var value = "\"" + index + "\"";
+    console.log("indexified: " + value);
+    return value;
 }
+function returnPlans() {
+    for (var i = 0; i <9; i++){
+        textRef = jQuery( `[data-value = ${i}]` ); //reference to the form inside
+        //console.log(indexed + " indexed");
+      var planned = JSON.parse(localStorage.getItem(i));
+    // console.log(planned);
+    //if (planned !== null) {
+      
+      console.log(planned + " : textRef");
+
+    //}
+    }
+  }
+
+// var name = { 'first': 1, 'second': 2, 'third': 3 };
+
+// // Put the object into storage
+// localStorage.setItem('name', JSON.stringify(name));
+
+// // Retrieve the object from storage
+// var retrievedObject = JSON.parse(localStorage.getItem('name'));
+
+// function getStored(index) {
+// //var value;
+//     var input;// = JSON.parse(localStorage.getItem(JSON.stringify(index)));
+//     var planned = JSON.parse(localStorage.getItem(index));
+//     console.log(planned);
+//     // console.log(JSON.stringify(index));
+//     // if (input !== null) {
+//     //     value = input;
+//     // }
+//     // console.log("locals: " + index + ": " + input);
+// }
 
 
 //get current hours to determine past, present, etc. this value updates hourly and upon refresh
@@ -39,23 +68,22 @@ console.log(currentTime + " hours");
 $( ".container" ).on( "click", ".textarea", function( event ) {
     event.preventDefault();
     var dataVal = $( this ).attr("data-value");
-    var textRef = jQuery( `[data-value = ${dataVal}]` ); //make save button as submit for text area
+    var textRef = jQuery( `[data-value = ${dataVal}]` ); 
      var innerText = textRef.val();
     console.log(innerText);
-    //var input = prompt("Event to add: "); //textarea = 1, savebtn = 01 for dataval
-    //textRef.text(input);
-    //make it so you can type into the box directly, hit enter to save
 });
 
 $( ".container" ).on( "click", ".saveBtn", function( event ) {
     event.preventDefault();
-    var saveVal = JSON.stringify($(this).attr("data-value").substr(1, 2));
-    console.log(saveVal);
-    var textRef = JSON.stringify(jQuery( `[data-value = ${saveVal}]` ).val()); 
-    console.log("text value: " + textRef + " " + saveVal);
-    localStorage.setItem(saveVal, textRef);
-    var parsed = JSON.parse(localStorage.getItem(saveVal));
-    console.log("saved value: " + parsed);
+    var saveVal = parseInt($(this).attr("data-value").substr(1, 2)); // gives single INT, use as key
+    var savedVal = jQuery(`[data-value = ${saveVal}]` ).val();
+    textRef = JSON.stringify(savedVal); //gives value stored at the data-value 
+    console.log("textRef's text: " + textRef);
+        //console.log("text value: " + textRef + " " + saveVal);
+    localStorage.setItem(saveVal, textRef); //should store the textRef value at "0" or "data-value"
+    console.log(localStorage.getItem(saveVal) + " value stored, indexify: " + indexIfy(savedVal));
+    var parsed = JSON.parse(localStorage.getItem(saveVal)); //so you can pull from it as long as you parse and getItem with a 'val 
+        console.log("saved value: " + parsed);
 });
 
 
@@ -87,3 +115,4 @@ function filler(classy, index) {
         console.log(textAreaRef.attr("class"));
         textAreaRef.addClass(classy);
 }
+returnPlans();
