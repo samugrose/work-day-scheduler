@@ -20,7 +20,7 @@ for (i = 9; i <= 17; i++) {
 
 //get current hours to determine past, present, etc. this value updates hourly and upon refresh
 var currentTime = parseInt(moment().inspect().split("T")[1].substr(0,2));
-
+var tempIndex; // for for loop determining time
 console.log(currentTime + " hours");
 
 //universal event delegator listening for clicks in text-areas (for adding text to calendar)
@@ -34,19 +34,25 @@ $( ".container" ).on( "click", ".textarea", function( event ) {
 
     if (currentTime < 9) { //0-8 - all green
         for (i = 0; i < 9; i++) {
-        filler("future", i);
-        console.log(currentTime > 9)
+            filler("future", i);
         }
-    } else if (currentTime > 16) { //18 - 24 - all gray
+    } else if (currentTime > 17) { //18 - 24 - all gray
         for (i = 0; i < 9; i++){
-        filler("past", i);
-    }
+            filler("past", i);
+        }
     } else { // between 9 and seventeen one red, some of both
-
+        tempIndex = currentTime - 9;
+        for (i = 0; i < tempIndex; i++) {
+            filler("past", i); //fill all with gray before red one, which is at tempIndex
+        }
+        filler("present", tempIndex);
+        for (i = tempIndex + 1; i <= 9; i++) {
+            filler("future", i); //fill all with gray before red one, which is at tempIndex
+        }
     } //make method that takes limit initial index and limit end hour as parameter and turns everythign up to that point the respective class
-    var textAreaRef; //for setting the color of the text areas
+     //for setting the color of the text areas
 function filler(classy, index) {
-        textAreaRef = jQuery( `[data-value = ${index}]`);
+        var textAreaRef = jQuery( `[data-value = ${index}]`);
         console.log(textAreaRef.attr("class"));
         textAreaRef.addClass(classy);
 }
