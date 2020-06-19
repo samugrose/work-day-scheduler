@@ -17,7 +17,7 @@ for (i = 9; i <= 17; i++) {
     }
 }
 
-
+var innerText;
 //get current hours to determine past, present, etc. this value updates hourly and upon refresh
 var currentTime = parseInt(moment().inspect().split("T")[1].substr(0,2));
 var tempIndex; // for for loop determining time
@@ -28,7 +28,8 @@ $( ".container" ).on( "click", ".textarea", function( event ) {
     event.preventDefault();
     var dataVal = $( this ).attr("data-value");
     var textRef = jQuery( `[data-value = ${dataVal}]` ); //make save button as submit for text area
-    
+    innertext = textRef.val();
+    console.log(innerText);
     //var input = prompt("Event to add: "); //textarea = 1, savebtn = 01 for dataval
     //textRef.text(input);
     //make it so you can type into the box directly, hit enter to save
@@ -39,7 +40,7 @@ $( ".container" ).on( "click", ".saveBtn", function( event ) {
     //v//ar dataVal = $().attr("data-value"); //get a referenece to the textarea with data val of substring 1, 2
     var saveVal = $(this).attr("data-value").substr(1, 2);
     console.log(saveVal);
-    var textRef = jQuery( `[data-value = ${saveVal}]` ).text(); //make save button as submit for text area
+    var textRef = jQuery( `[data-value = ${saveVal}]` ).val(); //make save button as submit for text area
     console.log("text value: " + textRef);
     //var input = prompt("Event to add: "); //textarea = 1, savebtn = 01 for dataval
     //textRef.text(input);
