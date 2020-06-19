@@ -19,24 +19,34 @@ for (i = 9; i <= 17; i++) {
 
 
 //get current hours to determine past, present, etc. this value updates hourly and upon refresh
-var currentTime = moment().inspect().split("T")[1].substr(0,2);
+var currentTime = parseInt(moment().inspect().split("T")[1].substr(0,2));
+
 console.log(currentTime + " hours");
 
-$( ".container" ).on( "click", ".text-area", function( event ) {
+//universal event delegator listening for clicks in text-areas (for adding text to calendar)
+$( ".container" ).on( "click", ".textarea", function( event ) {
     event.preventDefault();
     console.log( $( this ).attr("data-value"));
 });
-// var textArea = $(".text-area"); //selects each time area, 
-// textArea.on("click", function(){
-//     var value = $(this).data-value;
-//     console.log(value);
-// })
 
-// for (i = 0; i < 10; i++) {
-//     var clicked = jQuery( `[value = ${i}]` );
-//     clicked.attr("data-value");
-//     clicked.click(function(event) {
-//         event.preventDefault();
-//         console.log(clicked.value);
-//     });
-// }
+//change color of area of map based on what time it is
+//if before 9am, everything green- after 5pm everything gray, otherwise must determine which hour it is and turn it that color 9 == index 0
+
+    if (currentTime < 9) { //0-8 - all green
+        for (i = 0; i < 9; i++) {
+        filler("future", i);
+        console.log(currentTime > 9)
+        }
+    } else if (currentTime > 16) { //18 - 24 - all gray
+        for (i = 0; i < 9; i++){
+        filler("past", i);
+    }
+    } else { // between 9 and seventeen one red, some of both
+
+    } //make method that takes limit initial index and limit end hour as parameter and turns everythign up to that point the respective class
+    var textAreaRef; //for setting the color of the text areas
+function filler(classy, index) {
+        textAreaRef = jQuery( `[data-value = ${index}]`);
+        console.log(textAreaRef.attr("class"));
+        textAreaRef.addClass(classy);
+}
