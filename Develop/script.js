@@ -26,7 +26,11 @@ console.log(currentTime + " hours");
 //universal event delegator listening for clicks in text-areas (for adding text to calendar)
 $( ".container" ).on( "click", ".textarea", function( event ) {
     event.preventDefault();
-    console.log( $( this ).attr("data-value"));
+    var dataVal = $( this ).attr("data-value");
+    var textRef = jQuery( `[data-value = ${dataVal}]` );
+    var input = prompt("Event to add: ");
+    textRef.text(input);
+    //make it so you can type into the box directly, hit enter to save
 });
 
 //change color of area of map based on what time it is
@@ -46,7 +50,7 @@ $( ".container" ).on( "click", ".textarea", function( event ) {
             filler("past", i); //fill all with gray before red one, which is at tempIndex
         }
         filler("present", tempIndex);
-        for (i = tempIndex + 1; i <= 9; i++) {
+        for (i = tempIndex + 1; i < 9; i++) {
             filler("future", i); //fill all with gray before red one, which is at tempIndex
         }
     } //make method that takes limit initial index and limit end hour as parameter and turns everythign up to that point the respective class
