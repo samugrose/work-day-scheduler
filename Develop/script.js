@@ -27,11 +27,14 @@ console.log(currentTime + " hours");
 $( ".container" ).on( "click", ".textarea", function( event ) {
     event.preventDefault();
     var dataVal = $( this ).attr("data-value");
-    var textRef = jQuery( `[data-value = ${dataVal}]` );
-    var input = prompt("Event to add: ");
-    textRef.text(input);
+    var textRef = jQuery( `[data-value = ${dataVal}]` ); //make save button as submit for text area
+    textRef.focus();
+    //var input = prompt("Event to add: "); //textarea = 1, savebtn = 01 for dataval
+    //textRef.text(input);
     //make it so you can type into the box directly, hit enter to save
 });
+
+
 
 //change color of area of map based on what time it is
 //if before 9am, everything green- after 5pm everything gray, otherwise must determine which hour it is and turn it that color 9 == index 0
