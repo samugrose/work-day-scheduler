@@ -28,7 +28,19 @@ $( ".container" ).on( "click", ".textarea", function( event ) {
     event.preventDefault();
     var dataVal = $( this ).attr("data-value");
     var textRef = jQuery( `[data-value = ${dataVal}]` ); //make save button as submit for text area
-    textRef.focus();
+    
+    //var input = prompt("Event to add: "); //textarea = 1, savebtn = 01 for dataval
+    //textRef.text(input);
+    //make it so you can type into the box directly, hit enter to save
+});
+
+$( ".container" ).on( "click", ".saveBtn", function( event ) {
+    event.preventDefault();
+    //v//ar dataVal = $().attr("data-value"); //get a referenece to the textarea with data val of substring 1, 2
+    var saveVal = $(this).attr("data-value").substr(1, 2);
+    console.log(saveVal);
+    var textRef = jQuery( `[data-value = ${saveVal}]` ).text(); //make save button as submit for text area
+    console.log("text value: " + textRef);
     //var input = prompt("Event to add: "); //textarea = 1, savebtn = 01 for dataval
     //textRef.text(input);
     //make it so you can type into the box directly, hit enter to save
